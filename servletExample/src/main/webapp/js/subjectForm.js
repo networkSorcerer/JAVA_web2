@@ -22,12 +22,12 @@ $(function(){
 		}
 	});
 	
-	$(document).on("click", "#deleteBtn", ()=> {
-		if(!chkData ("#s_no", "학과번호 ")) return;
+	$(document).on("click", ".upBtn", () => {
+		if(!chkData("#s_name","학과명을 ")) return;
 		else {
-			$("#subject").attr ({
+			$("#subject").attr({
 				"method":"post",
-				"action":"/servletExample/delete"
+				"action":"/servletExample/update"
 			});
 			$("#subject").submit();
 		}

@@ -29,28 +29,26 @@
 				});
 			});
 		</script> --%>
-		<script type="text/javascript" src="/servletExample/js/jquery-3.7.1.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-		<script src = "/servletExample/js/subjectList.js"></script>
+		
 	</head>
 	<body>
 		<div id="container" >
-			<h3>테이블 subject 학과 정보 조회</h3>
+			<h3 >테이블 subject 학과 정보 조회</h3>
 			<hr/>
-			<div id = "subjectsList" class="text-right">
-				<div >
+			<div id = "subjectsList">
+				<!-- <div >
 					<input  class="text-end" type="button" value="학과정보등록" id="subjectInsert"/>
-				</div>
-				<div >
-					<input  class="text-end" type="button" value="학과정보삭제" id="subjectDelete"/>
-				</div>
+				</div> -->
 				
-				<table  class="table table-success table-striped">
-					<thead>
+				
+				<table   table class="table table-striped">
+					<thead class="text-center">
 						<tr>
 							<th>번호</th>
 							<th>학과번호</th>
 							<th>학과명</th>
+							<th>수정</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,23 +59,29 @@
 					 		<td><%= sub.getNo() %></td>
 					 		<td><%= sub.getS_num() %></td>
 					 		<td><%= sub.getS_name() %></td>
+					 		<td><button type="button" class="updateBtn btn btn-outline-success" >수정</button></td>
+					 		<td><button type="button" class="deleteBtn btn btn-outline-success" >삭제</button></td>
 					 	</tr>
 					 <%
 						}
 					}else {
 					 %>
 						<tr>
-							<td colspan="3" class="text-center">
+							<td colspan="5" class="text-center">
 								조회된 학과 정보가 존재하지 않습니다
 							<td>
 						</tr>
 					<% }  %>
 					</tbody>
 				</table>
-				<div class ="text-right">
+				<div class ="text-sright">
 					조회된 학과 수는 <span id ="counter"><%=counter%></span>입니다
 				</div>
 			</div>
+			<jsp:include page ="subjectForm.jsp"/>
 		</div>
+		<script type="text/javascript" src="/servletExample/js/jquery-3.7.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<script src = "/servletExample/js/subjectList.js"></script>
 	</body>
 </html>

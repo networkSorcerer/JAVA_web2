@@ -167,7 +167,35 @@ public class SubjectDAO {
 			close(con);
 		}
 		
-		return success;
+		return success;	
+	}
+	
+	public int studentDataCheck(SubjectVO svo) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(sd_num) from student " );
+		sql.append("where s_num = ? ");
 		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int data = 0;
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, svo.getS_num ());
+			rs = pstmt.executeQuery();
+			if( rs.next()) {
+				data = rs.getInt(1);
+			}
+		}catch (SQLException se) {
+			System.out.println("조회에 문제가 있어 잠시 후에 다시 진행해 주세요");
+		}catch (Exception e) {
+			System.out.println("error = [" + e + "]");
+		}finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		return data;
 	}
 }
