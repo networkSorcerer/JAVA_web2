@@ -10,9 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SubjectDAO {
-	//getSubjectTotal () 메서드 : 학과 테이블에서 모든 레코드를 반환 메서드.
-	//getSubjectTotal (SubjectVO vo ) 메서드 : 검색시 (검색 대상 , 검색어 ) 을 vo로 전달받음
-	//@return ArrayList<SubjectVO> 자료형 리턴 
+	//학과번호는 수정할수 없다
+	
 	public ArrayList<SubjectVO> getSubjectTotal(SubjectVO vo ) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -79,5 +78,96 @@ public class SubjectDAO {
 		}
 		return subjectNumber;
 	}
-
+	
+	public boolean subjectInsert(SubjectVO svo) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("insert into subject(no, s_num, s_name) ");
+		sql.append("values(subject_seq.nextval, ?, ?)");
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean success = false;
+		try { 
+			con = getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1,  svo.getS_num());
+			pstmt.setString(2,  svo.getS_name());
+			
+			int i = pstmt.executeUpdate();
+			if(i == 1) {
+				success = true;
+			}
+		}catch (SQLException se) {
+			System.out.println("입력에 문제가 있어 잠시후에 다시 진행해 주세요");
+		}catch (Exception e) {
+			System.out.println("error = [" + e+ " ]");
+		}finally {
+			close(pstmt);
+			close(con);
+		}
+		return success;
+	}
+	
+	public boolean subjectUpdate(SubjectVO svo) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("update subject set s_name = ? ");
+		sql.append("where no = ?");
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean  success = false;
+		
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, svo.getS_name());
+			pstmt.setInt(2,  svo.getNo());
+			
+			int i = pstmt.executeUpdate();
+			if(i==1) {
+				success = true;
+			}
+			
+		}catch (SQLException se) {
+			System.out.println("수정에 문제가 있어 잠시후에 다시 진행해 주세요 ");
+		}catch (Exception e) {
+			System.out.println("error= [ " + e+ " ]");
+		}finally {
+			close(pstmt);
+			close(con);
+		}
+		return success;
+	}
+	
+	public boolean subjectDelete(SubjectVO svo) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from subject where no = ?");
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean success = false;
+		
+		try {
+			con = getConnection();
+			
+			pstmt = con.prepareStatement(sql.toString ());
+			pstmt.setInt(1,  svo.getNo());
+			
+			int i = pstmt.executeUpdate();
+			
+			if(i == 1) {
+				success = true;
+			}
+		}catch (SQLException se) {
+			System.out.println("삭제에 문제가 있어 잠시후에 다시 진행해 주세요 ");
+		}catch (Exception e) {
+			System.out.println("error = [" + e + " ]");
+		}finally {
+			close(pstmt);
+			close(con);
+		}
+		
+		return success;
+		
+	}
 }

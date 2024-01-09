@@ -21,8 +21,7 @@
 		<link rel="shortcut icon" href="../image/icon.png" />
 		<link rel="apple-touch-icon" href="../image/icon.png" />
 		<!-- 모바일 웹 페이지 설정 끝 -->
-		<script type="text/javascript" src="/servletExample/js/jquery-3.7.1.min.js"></script>
-		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 		 <%-- <script>
 			$(function(){
 				$("#subjectInsert").on("click", ()=> {
@@ -30,17 +29,23 @@
 				});
 			});
 		</script> --%>
+		<script type="text/javascript" src="/servletExample/js/jquery-3.7.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 		<script src = "/servletExample/js/subjectList.js"></script>
 	</head>
 	<body>
 		<div id="container" >
 			<h3>테이블 subject 학과 정보 조회</h3>
 			<hr/>
-			<div id = "subjectList">
-				<div class="text-right">
-					<input type="button" value="학과정보등록" id="subjectInsert"/>
+			<div id = "subjectsList" class="text-right">
+				<div >
+					<input  class="text-end" type="button" value="학과정보등록" id="subjectInsert"/>
 				</div>
-				<table>
+				<div >
+					<input  class="text-end" type="button" value="학과정보삭제" id="subjectDelete"/>
+				</div>
+				
+				<table  class="table table-success table-striped">
 					<thead>
 						<tr>
 							<th>번호</th>

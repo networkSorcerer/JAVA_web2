@@ -29,5 +29,4 @@ public class SubjectServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("subject/subjectList.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }
