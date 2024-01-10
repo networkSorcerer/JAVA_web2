@@ -33,6 +33,8 @@ $(function(){
 		}
 	});
 	
+	
+	
 	$("#resetBtn").on("click", ()=> {
 		$("#s_name").val("");
 	});

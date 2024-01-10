@@ -19,8 +19,8 @@ $(function(){
 		$("#insertBtn").addClass("upBtn");
 		$(".upBtn").removeAttr("id");
 	});
-	
-	$(".deleteBtn").on("click", function(){
+	//삭제 버튼 제어
+	/*$(".deleteBtn").on("click", function(){
 		let s_num = $(this).parents("tr").find("td:eq(1)").html();
 		let no = $(this).parents("tr").attr("data-no");
 		
@@ -45,5 +45,12 @@ $(function(){
 				alert(textStatus + " (HTTP -" + xhr.status + " )");
 			}
 		});
-	});
+	});*/
+	
+	$(".deleteBtn").on("click", function(){
+		if(confirm("삭제하시겠습니까?")){
+			let no = $(this).parents("tr").attr("data-no");
+			location.href="/servletExample/delete?no="+no;
+		}
+	});	
 });

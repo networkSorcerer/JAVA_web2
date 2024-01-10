@@ -59,8 +59,12 @@
 					 		<td><%= sub.getNo() %></td>
 					 		<td><%= sub.getS_num() %></td>
 					 		<td><%= sub.getS_name() %></td>
+					 		<td><%= sub.getDeleteable() %></td>
 					 		<td><button type="button" class="updateBtn btn btn-outline-success" >수정</button></td>
-					 		<td><button type="button" class="deleteBtn btn btn-outline-success" >삭제</button></td>
+					 		<!-- <td><button type="button" class="deleteBtn btn btn-outline-success" >삭제</button></td> -->
+					 		
+					 		<td><button type="button" class="deleteBtn "
+					 		<% if (sub.getDeleteable().equals("삭제불가능")){ %> disabled="disabled" <% } %>>삭제</button></td>
 					 	</tr>
 					 <%
 						}

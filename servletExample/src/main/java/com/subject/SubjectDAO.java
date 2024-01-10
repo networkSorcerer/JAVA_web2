@@ -21,8 +21,11 @@ public class SubjectDAO {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append("select no, s_num, s_name from subject ");
-		sql.append("order by no");
+		/*
+		 * sql.append("select no, s_num, s_name from subject ");
+		 * sql.append("order by no");
+		 */
+		sql.append("select no, s_num, s_name, deleteable from subjectselect");
 		
 		try {
 			con = getConnection();
@@ -34,7 +37,7 @@ public class SubjectDAO {
 				svo.setNo(rs.getInt("no"));
 				svo.setS_num(rs.getString("s_num"));
 				svo.setS_name(rs.getString("s_name"));
-				
+				svo.setDeleteable(rs.getString("deleteable"));
 				list.add(svo);
 			}
 		} catch (SQLException se) {
@@ -197,5 +200,42 @@ public class SubjectDAO {
 			close(con);
 		}
 		return data;
+	}	
+	
+	public SubjectVO subjectSearch(SubjectVO vo ) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SubjectVO svo = null;
+		
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("select no, s_num, s_name from subject");
+		sql.append(" where no = ? ");
+		sql.append(" order by no");
+		
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setInt(1,  vo.getNo());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				svo = new SubjectVO();
+				svo.setNo(rs.getInt("no"));
+				svo.setS_num(rs.getString("s_num"));
+				svo.setS_name(rs.getString("s_name"));
+			} 
+		}catch (SQLException se ) {
+			System.out.println("조회에 문제가 있어 잠시후에 다시 진행해주세요");
+		}catch(Exception e) {
+			System.out.println("error = [" + e+ "]");
+		}finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		return svo;
 	}
 }
