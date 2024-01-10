@@ -27,9 +27,16 @@ public class SubjectDAO {
 		 */
 		sql.append("select no, s_num, s_name, deleteable from subjectselect");
 		
+		if(vo != null) {
+			sql.append(" where s_name like ?");
+		}
+		
 		try {
 			con = getConnection();
 			pstmt = con.prepareStatement(sql.toString());
+			if(vo != null) {
+				pstmt.setString(1, "%" + vo.getS_name() + "%");
+			}
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

@@ -5,6 +5,11 @@
 	@SuppressWarnings ("unchecked")
 	ArrayList<SubjectVO> list = (ArrayList<SubjectVO>)request.getAttribute("list");
 	int counter = list.size();
+	
+	String word = request.getParameter("s_name");
+	if(word == null) {
+		word = "";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +44,13 @@
 				<!-- <div >
 					<input  class="text-end" type="button" value="학과정보등록" id="subjectInsert"/>
 				</div> -->
-				
+				<form id="search" >
+					<div class="input-group">
+						<input type="text" class="form-control" name="s_name" id="name" placeholder="학과명 검색" aria-label="학과명 검색" maxlength="20" />
+						<button class="btn btn-outline-secondary" type="button" id="searchBtn">학과명 검색</button>
+						<button class="btn btn-outline-secondary" type="button" id="searchAllBtn">전체 검색</button>
+					</div>
+				</form>
 				
 				<table   table class="table table-striped">
 					<thead class="text-center">
@@ -63,7 +74,7 @@
 					 		<td><button type="button" class="updateBtn btn btn-outline-success" >수정</button></td>
 					 		<!-- <td><button type="button" class="deleteBtn btn btn-outline-success" >삭제</button></td> -->
 					 		
-					 		<td><button type="button" class="deleteBtn "
+					 		<td><button type="button" class="deleteBtn  btn btn-outline-success"
 					 		<% if (sub.getDeleteable().equals("삭제불가능")){ %> disabled="disabled" <% } %>>삭제</button></td>
 					 	</tr>
 					 <%
@@ -82,10 +93,16 @@
 					조회된 학과 수는 <span id ="counter"><%=counter%></span>입니다
 				</div>
 			</div>
-			<jsp:include page ="subjectForm.jsp"/>
+			<jsp:include page ="subjectForm.jsp"/><!-- 액션 태그? -->
 		</div>
 		<script type="text/javascript" src="/servletExample/js/jquery-3.7.1.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>	
 		<script src = "/servletExample/js/subjectList.js"></script>
+		<script>
+			let keyword = "<%=word%>";
+			if(keyword != "") {
+				$("#name").val(keyword);
+			}
+		</script>
 	</body>
 </html>

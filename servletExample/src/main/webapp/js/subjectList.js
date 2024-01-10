@@ -52,5 +52,20 @@ $(function(){
 			let no = $(this).parents("tr").attr("data-no");
 			location.href="/servletExample/delete?no="+no;
 		}
-	});	
+	});
+	
+	$("#searchBtn").on("click", () => {
+		if(!chkData("#name", "검색할 학과명을 ")) return;
+		else {
+			$("#search").attr({
+				"method":"get",
+				"action":"/servletExample/list"
+			});
+			$("#search").submit();
+		}
+	});
+	
+	$("#searchAllBtn").on("click", () =>{
+		location.href = "/servletExample/list";
+	})	
 });

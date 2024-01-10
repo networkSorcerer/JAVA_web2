@@ -22,8 +22,17 @@ public class SubjectServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		SubjectVO vo = null;
+		String s_name = request.getParameter("s_name");
+		if(s_name != null) {
+			vo = new SubjectVO();
+			vo.setS_name(s_name);
+		}
+		
+		
 		SubjectDAO dao = new SubjectDAO ();
-		ArrayList<SubjectVO> list = dao.getSubjectTotal(null);
+		ArrayList<SubjectVO> list = dao.getSubjectTotal(vo);
 		
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("subject/subjectList.jsp");
